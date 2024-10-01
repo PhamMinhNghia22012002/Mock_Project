@@ -9,7 +9,7 @@
 ***************************************************************************************/
 int isLeapYear(int year)
 {
-    return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
+	return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
 }
 
 /*************************************************************************************
@@ -22,17 +22,17 @@ int isLeapYear(int year)
 ***************************************************************************************/
 int getDaysInMonth(int month, int year)
 {
-    switch(month)
-    {
-        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-            return 31;  // Months with 31 days
-        case 4: case 6: case 9: case 11:
-            return 30;  // Months with 30 days
-        case 2:
-            return isLeapYear(year) ? 29 : 28;  // February: 28 days, or 29 in leap years
-        default:
-            return 30;  // Fallback, should not happen
-    }
+	switch(month)
+	{
+		case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+				return 31;  // Months with 31 days
+		case 4: case 6: case 9: case 11:
+				return 30;  // Months with 30 days
+		case 2:
+				return isLeapYear(year) ? 29 : 28;  // February: 28 days, or 29 in leap years
+		default:
+				return 30;  // Fallback, should not happen
+	}
 }
 
 /*************************************************************************************

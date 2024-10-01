@@ -1180,7 +1180,7 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       186          0          0          0          0        855   adc.o
+       186          0          0          0          0        863   adc.o
        394          0        188          0          0       2425   configgpio.o
        392          0          0          0          0        970   lpit.o
        592          8        205          0          0        950   main.o
@@ -1193,7 +1193,7 @@ Image component sizes
        206          0          0          0          0       2095   uart1.o
 
     ----------------------------------------------------------------------
-      4616        114       1136         24       3124      19018   Object Totals
+      4616        114       1136         24       3124      19026   Object Totals
          0          0         32          0       3072          0   (incl. Generated)
         20          0          3          0          2          0   (incl. Padding)
 
@@ -1248,8 +1248,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      6636        294       1136         24       3124      19706   Grand Totals
-      6636        294       1136         24       3124      19706   ELF Image Totals
+      6636        294       1136         24       3124      19714   Grand Totals
+      6636        294       1136         24       3124      19714   ELF Image Totals
       6636        294       1136         24          0          0   ROM Totals
 
 ==============================================================================
