@@ -14,7 +14,7 @@ volatile unsigned int g_CountChar = 0;
 volatile unsigned int g_Mode = 0;
 volatile unsigned int g_EnaDisplay7Seg = 0;
 
-/*variable for ringbuffer to recieve data from interrupt UAR1 */
+/*variable for ringbuffer to recieve data from interrupt UART1 */
 unsigned char Interrupt_Buffer[BUFFER_SIZE_MAX];
 unsigned char Polling_Buffer[BUFFER_SIZE_MAX];
 volatile unsigned char index_In = 0;
@@ -36,6 +36,7 @@ unsigned int toUint(const unsigned char* myString)
 	g_CountChar = 0;
 	while(myString[g_CountChar] != ']') 
 			g_CountChar++;
+	/* Convert string from Polling_Buffer to number */
 	for(unsigned int i = 1; i < g_CountChar; i++)
 	{
 		if(myString[i] < '0' || myString[i] > '9')
@@ -55,11 +56,14 @@ unsigned int toUint(const unsigned char* myString)
 ***************************************************************************************/
 unsigned int Convert_To_Time_Format(unsigned int time)
 {
+	/* Separate hours, minutes, seconds */
 	unsigned int hours_temp = time / 10000;
 	unsigned int minutes_temp = time / 100 % 100;
 	unsigned int second_temp = time / 1 % 100;
+	/* Check hours, minutes, seconds is valid */
 	if (hours_temp > 23 || minutes_temp > 59 || second_temp > 59)
 			return 0;    
+	/* update hours, minutes, seconds  */
 	g_Hour = hours_temp;
 	g_Minute = minutes_temp;
 	g_Second = second_temp;
@@ -76,16 +80,19 @@ unsigned int Convert_To_Time_Format(unsigned int time)
 ***************************************************************************************/
 unsigned int Convert_To_Date_Format(unsigned int date)
 {
-    unsigned int days_temp = date / 1000000;
-    unsigned int mouths_temp = date / 10000 % 100;
-    unsigned int years_temp = date % 10000;
-    if(mouths_temp > 12 || mouths_temp < 1 || days_temp > getDaysInMonth(mouths_temp, years_temp) || days_temp < 1)
-        return 0;
-    g_Day = days_temp;
-    g_Mouth = mouths_temp;
-    g_Year = years_temp;
+	/* Separate hours, minutes, seconds */
+	unsigned int days_temp = date / 1000000;
+	unsigned int mouths_temp = date / 10000 % 100;
+	unsigned int years_temp = date % 10000;
+	/* Check hours, minutes, seconds is valid */
+	if(mouths_temp > 12 || mouths_temp < 1 || days_temp > getDaysInMonth(mouths_temp, years_temp) || days_temp < 1)
+			return 0;
+	/* update hours, minutes, seconds  */
+	g_Day = days_temp;
+	g_Mouth = mouths_temp;
+	g_Year = years_temp;
 
-    return 1;
+	return 1;
 }
 
 /*************************************************************************************
@@ -98,7 +105,8 @@ void dateTime()
 {
 	if(g_CountSecond >= 10)
 	{
-		g_CountSecond = g_CountSecond - 10; /*If the count is overcounted, the overcount value will be left for the next counting cycle*/
+		/*If the count is overcounted, the overcount value will be left for the next counting cycle*/
+		g_CountSecond = g_CountSecond - 10; 
 		g_Second++;
 		if(g_Second == 60)
 		{
@@ -135,31 +143,38 @@ void dateTime()
 * @param Buffer  The buffer containing the received string data to process.
 ***************************************************************************************/
 void Process_Polling_Buffer(unsigned char *Buffer) 
-{	
+{
+	/*Convert string to Number*/
 	sum = toUint(Buffer);
+	/*Check format is time*/
 	if(sum < 250000 && g_CountChar == 7)
+		/*Check time is unvalid*/
 		if(!Convert_To_Time_Format(sum))
 		{
-				LPUART1_transmit_string((char *)"Invalid time format\n");
+				LPUART1_Transmit_String((char *)"Invalid time format\n");
 		}
 		else
 		{
-				LPUART1_transmit_string((char *)"Time updated successfully\n");
+				LPUART1_Transmit_String((char *)"Time updated successfully\n");
 		}
+	/*Check format is day*/
 	else if(sum > 250000 && g_CountChar == 9)
+		/*Check date is unvalid*/
 		if(!Convert_To_Date_Format(sum))
 		{
-				LPUART1_transmit_string((char *)"Invalid date format\n");
+				LPUART1_Transmit_String((char *)"Invalid date format\n");
 		}
 		else
 		{
-				LPUART1_transmit_string((char *)"Date updated successfully\n");
+				LPUART1_Transmit_String((char *)"Date updated successfully\n");
 		}
+	/* Check convert to Uint is unvalid */
 	else if(sum == -1)
-		LPUART1_transmit_string((char *)"Invalid input format\n");
+		LPUART1_Transmit_String((char *)"Invalid input format\n");
+	/* Input string is unvalid */
 	else
 	{
-		LPUART1_transmit_string((char *)"Invalid input format\n");
+		LPUART1_Transmit_String((char *)"Invalid input format\n");
 	}
 }
 
@@ -171,6 +186,7 @@ void Process_Polling_Buffer(unsigned char *Buffer)
 ***************************************************************************************/
 void CheckRxBuffer(void)
 {
+	/* Check data come from uart */
 	if ( index_Out != index_In ) 
 	{
 		Rx_Byte_read = Interrupt_Buffer[index_Out];
@@ -199,6 +215,7 @@ void CheckRxBuffer(void)
 				Polling_Buffer[0] = 0; /* Reset character start */
 		}
 		index_Out++;
+		/*Check Overflow buffer */
 		if(index_Out >= BUFFER_SIZE_MAX) 
 			index_Out = 0;
 	}
@@ -256,12 +273,13 @@ void LPUART1_RxTx_IRQHandler(void)
 	/* Add recieved data to Interrupt_Buffer */
 //	while(index_In < BUFFER_SIZE_MAX)
 //	{
-		Interrupt_Buffer[index_In] = (unsigned char)LPUART1->DATA;
-		/* Increase index_In to compare with index_Out to know when the data come in */
-		index_In++;
-		if(BUFFER_SIZE_MAX <= index_In)
-		{
-				index_In = 0;
-		}
+	Interrupt_Buffer[index_In] = (unsigned char)LPUART1->DATA;
+	/* Increase index_In to compare with index_Out to know when the data come in */
+	index_In++;
+	if(BUFFER_SIZE_MAX <= index_In)
+	{
+			index_In = 0;
+	}
 //	}
 }
+/*! end line !*/

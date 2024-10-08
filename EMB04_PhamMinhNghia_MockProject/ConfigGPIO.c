@@ -1,5 +1,6 @@
 #include"ConfigGPIO.h"
 
+/* declare pcc address and base address */
 const unsigned int PCC_PORT[5] = {0x124u, 0x128u, 0x12Cu, 0x130u, 0x12Cu};
 const unsigned int PORT_BASE[5] = {0x40049000u, 0x4004A000u, 0x4004B000u, 0x4004C000u, 0x4004D000u};
 const unsigned int GPIO_BASE[5] = {0x400FF000u, 0x400FF040u, 0x400FF080u, 0x400FF0C0u, 0x400FF100u};
@@ -143,3 +144,4 @@ void ClearFlagExternalInterruptPortC(unsigned char pin)
 	volatile unsigned int* PORTn_PCRn = (volatile unsigned int *)(PORT_BASE[PORT_C] + PORT_PCR[pin]);
   *PORTn_PCRn |= (1 << 24); /* Clear the interrupt flag */
 }
+/*! end line !*/

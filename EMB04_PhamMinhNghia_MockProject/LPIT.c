@@ -72,4 +72,4 @@ void LPIT_Init_Interrupt()
 	volatile unsigned int* NVIC_ISER = (volatile unsigned int *)(0xE000E100u + 4*(48/32));
 	*NVIC_ISER |= (1 << (48 % 32)); // Enable interrupt for LPIT Timer 0
 }
-
+/*! end line !*/

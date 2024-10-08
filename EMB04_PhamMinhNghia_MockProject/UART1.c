@@ -6,7 +6,7 @@
 *              8-bit data format, and no parity. Configures clock source and baud rate.
 * @param       None.
 ***************************************************************************************/
-void LPUART1_init(void)  
+void LPUART1_Init(void)  
 {
 	setClearBit(PCC_UART1_CLOCK, 30, RESET_BIT); /*  Ensure clk disabled for config */
 	setClearBits(PCC_UART1_CLOCK, 24, 0x07, 0x03); /* Clock Src = 011 (fircDIV2_CLK)*/ 
@@ -29,7 +29,7 @@ void LPUART1_init(void)
 *              transmit buffer to be empty before sending the character.
 * @param send  The character to transmit.
 ***************************************************************************************/
-void LPUART1_transmit_char(char send) 
+void LPUART1_Transmit_Char(char send) 
 {    
 	/* Wait for transmit buffer to be empty */
 	while((LPUART1->STAT & (1u << 23)) >> 23 == 0); /* Transmit Data Register Empty Flag */
@@ -43,13 +43,13 @@ void LPUART1_transmit_char(char send)
 *              character one by one using the `LPUART1_transmit_char` function.
 * @param data_string  Pointer to the string to transmit.
 ***************************************************************************************/
-void LPUART1_transmit_string(char *data_string)  
+void LPUART1_Transmit_String(char *data_string)  
 {  
 	unsigned int i=0;
 	while(data_string[i] != '\0')  
 	{           
 		/* Send chars one at a time */
-		LPUART1_transmit_char(data_string[i]);
+		LPUART1_Transmit_Char(data_string[i]);
 		i++;
 	}
 }
@@ -59,7 +59,7 @@ void LPUART1_transmit_string(char *data_string)
 *              receive buffer to be full before reading the character.
 * @return      The received character.
 ***************************************************************************************/
-char LPUART1_receive_char(void) 
+char LPUART1_Receive_Char(void) 
 {    
 	char receive;
   while((LPUART1->STAT & (1u << 21)) >> 21 == 0);
@@ -76,7 +76,7 @@ char LPUART1_receive_char(void)
 *              is received, or the buffer is full (8 characters max).
 * @param receive  Pointer to a buffer where the received string will be stored.
 ***************************************************************************************/
-void LPUART1_receive_string(char* receive) 
+void LPUART1_Receive_String(char* receive) 
 {     
     unsigned int i = 0;
 		for(int i = 0; i < 9; i++)
@@ -112,11 +112,11 @@ void LPUART1_receive_string(char* receive)
 *              the echoed character.
 * @param       None.
 ***************************************************************************************/
-void LPUART1_receive_and_echo_char(void)  
+void LPUART1_Receive_And_Echo_Char(void)  
 {  
-	char send = LPUART1_receive_char();        /* Receive Char */
-	LPUART1_transmit_char(send);               /* Transmit same char back to the sender */
-	LPUART1_transmit_char('\n');               /* New line */
+	char send = LPUART1_Receive_Char();        /* Receive Char */
+	LPUART1_Transmit_Char(send);               /* Transmit same char back to the sender */
+	LPUART1_Transmit_Char('\n');               /* New line */
 }
 
 /*************************************************************************************
@@ -124,12 +124,12 @@ void LPUART1_receive_and_echo_char(void)
 *              received string. A newline character is transmitted after the echoed string.
 * @param       None.
 ***************************************************************************************/
-void LPUART1_receive_and_echo_string(void)  
+void LPUART1_Receive_And_Echo_String(void)  
 {  
 	char received_string[9]; 
-	LPUART1_receive_string(received_string);        /* Receive Char */
-	LPUART1_transmit_string(received_string);       /* Transmit same char back to the sender */
-	LPUART1_transmit_char('\n'); 
+	LPUART1_Receive_String(received_string);        /* Receive Char */
+	LPUART1_Transmit_String(received_string);       /* Transmit same char back to the sender */
+	LPUART1_Transmit_Char('\n'); 
 }
 
 /*************************************************************************************

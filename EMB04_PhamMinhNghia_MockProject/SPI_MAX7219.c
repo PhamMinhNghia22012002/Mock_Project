@@ -3,6 +3,7 @@
 /* code 7 led segment (0 - 9) */
 const unsigned char digitSegmentCodes[10] = {0x7e, 0x30, 0x6d, 0x79, 0x33, 0x5b, 0x5f, 0x70, 0x7f, 0x7b};
 																						/* 0     1     2     3     4    5     6      7     8     9*/
+/* code for greeting */
 const unsigned char greeting[8] = {0x37, 0x4f, 0x0e, 0x0e, 0x7e, 0x00, 0x00, 0x00};
 																		/*H     E    L      L     O   */
 /*************************************************************************************
@@ -162,7 +163,11 @@ void MAX7219_Display_Date(unsigned int days, unsigned int mouths, unsigned int y
 	SPI_SendData(MAX7219_DIGIT1, digitSegmentCodes[years / 10 % 10]);
 	SPI_SendData(MAX7219_DIGIT0, digitSegmentCodes[years / 1 % 10]);
 }
+/*************************************************************************************
+* @description Displays a temperature on a MAX7219 module controlling 8 seven-segment LEDs.
 
+* @param temp   Temperature value read from lm35
+***************************************************************************************/
 void MAX7219_Display_Temperature(unsigned int temp)
 {
 	/* Display temperature */
@@ -176,9 +181,4 @@ void MAX7219_Display_Temperature(unsigned int temp)
 	SPI_SendData(MAX7219_DIGIT0, 0x01);
 	
 }
-
-
-
-
-
-
+/* End line! */

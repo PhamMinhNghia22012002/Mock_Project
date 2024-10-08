@@ -28,13 +28,13 @@ typedef struct
 #define LPUART1 ((LPUART_Type*) LPUART1_base_address)
 
 // function prototype
-void LPUART1_init(void);
-void LPUART1_transmit_char(char send) ;
-void LPUART1_transmit_string(char *data_string); 
-char LPUART1_receive_char(void) ;
-void LPUART1_receive_string(char* receive); 
-void LPUART1_receive_and_echo_char(void)  ;
-void LPUART1_receive_and_echo_string(void)  ;
+void LPUART1_Init(void);
+void LPUART1_Transmit_Char(char send) ;
+void LPUART1_Transmit_String(char *data_string); 
+char LPUART1_Receive_Char(void) ;
+void LPUART1_Receive_String(char* receive); 
+void LPUART1_Receive_And_Echo_Char(void)  ;
+void LPUART1_Receive_And_Echo_String(void)  ;
 void UART1_EnableInterrupts(void);
 
 #endif

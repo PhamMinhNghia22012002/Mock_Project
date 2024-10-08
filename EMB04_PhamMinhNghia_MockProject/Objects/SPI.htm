@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\SPI.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\SPI.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Tue Oct  1 23:16:25 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Sat Oct  5 20:01:10 2024
 <BR><P>
 <H3>Maximum Stack Usage =        152 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -826,11 +826,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[2b]"></a>LPUART1_RxTx_IRQHandler</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, mock_project.o(.text.LPUART1_RxTx_IRQHandler))
-<BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
-</UL>
-<P><STRONG><a name="[a2]"></a>LPUART1_init</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, uart1.o(.text.LPUART1_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = LPUART1_init &rArr; setClearBits
+<P><STRONG><a name="[a2]"></a>LPUART1_Init</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, uart1.o(.text.LPUART1_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = LPUART1_Init &rArr; setClearBits
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setClearBits
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setClearBit
@@ -838,16 +835,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a4]"></a>LPUART1_transmit_char</STRONG> (Thumb, 52 bytes, Stack size 4 bytes, uart1.o(.text.LPUART1_transmit_char))
-<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = LPUART1_transmit_char
+<P><STRONG><a name="[2b]"></a>LPUART1_RxTx_IRQHandler</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, mock_project.o(.text.LPUART1_RxTx_IRQHandler))
+<BR>[Address Reference Count : 1]<UL><LI> startup_s32k144.o(RESET)
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
+<P><STRONG><a name="[a4]"></a>LPUART1_Transmit_Char</STRONG> (Thumb, 52 bytes, Stack size 4 bytes, uart1.o(.text.LPUART1_Transmit_Char))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = LPUART1_Transmit_Char
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_Transmit_String
 </UL>
 
-<P><STRONG><a name="[a3]"></a>LPUART1_transmit_string</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, uart1.o(.text.LPUART1_transmit_string))
-<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LPUART1_transmit_string &rArr; LPUART1_transmit_char
+<P><STRONG><a name="[a3]"></a>LPUART1_Transmit_String</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, uart1.o(.text.LPUART1_Transmit_String))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LPUART1_Transmit_String &rArr; LPUART1_Transmit_Char
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_char
+<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_Transmit_Char
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Process_Polling_Buffer
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -896,7 +896,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Convert_To_Date_Format
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Convert_To_Time_Format
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;toUint
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_Transmit_String
 </UL>
 <BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckRxBuffer
 </UL>
@@ -978,9 +978,9 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MAX7219_Display_Time
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CheckRxBuffer
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dateTime
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_transmit_string
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_Transmit_String
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_EnableInterrupts
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_init
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_Init
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MAX7219_Init
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPSPI_Init
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_SetMode
@@ -998,7 +998,7 @@ Global Symbols
 <P><STRONG><a name="[9e]"></a>setClearBit</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, configgpio.o(.text.setClearBit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = setClearBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_init
+<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_Init
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_SetMode
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_Init
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
@@ -1008,7 +1008,7 @@ Global Symbols
 <P><STRONG><a name="[a0]"></a>setClearBits</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, configgpio.o(.text.setClearBits))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = setClearBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_init
+<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LPUART1_Init
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_SetMode
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_SetMux
 </UL>

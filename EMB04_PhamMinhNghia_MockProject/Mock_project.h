@@ -49,3 +49,4 @@ void LPUART1_RxTx_IRQHandler(void);
 void MAX7219_Display_Temperature(unsigned int temp);
 
 #endif
+/*! end line !*/

@@ -80,4 +80,4 @@ unsigned int Read_ADC_Result(void)
 	
 	return result;
 }
-
+/*! end line !*/

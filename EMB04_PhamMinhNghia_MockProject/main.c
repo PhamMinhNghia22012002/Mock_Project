@@ -10,8 +10,10 @@ int main(void)
 {
 	/*Enable systicks*/
 	SysTick_Init();
+	
 	/* Enable NVIC for LPIT to count time*/
 	LPIT_Init_Interrupt();
+	
 	/* Enable NVIC for PORTC */
 	Enable_PORTC_Interrupt();
 	
@@ -52,14 +54,15 @@ int main(void)
   MAX7219_Init();
 
 	/* Initilize LPUART1 */
-	LPUART1_init();
+	LPUART1_Init();
+	
 	/* Enable interrupt lpuart1 */
 	UART1_EnableInterrupts();
 	
 	/* Display user manual */
-	LPUART1_transmit_string((char *)"Hello world, please enter following format to change time [hhmmss] and [ddmmyyyy]\n");	
-	LPUART1_transmit_string((char *)"EX1: [235030] , hours is 23 - minutes is 50 - seconds is 30\n");	
-	LPUART1_transmit_string((char *)"EX2: [22012002] , days is 22 - mouths is 01 - years is 2002\n");
+	LPUART1_Transmit_String((char *)"Hello world, please enter following format to change time [hhmmss] and [ddmmyyyy]\n");	
+	LPUART1_Transmit_String((char *)"EX1: [235030] , hours is 23 - minutes is 50 - seconds is 30\n");	
+	LPUART1_Transmit_String((char *)"EX2: [22012002] , days is 22 - mouths is 01 - years is 2002\n");
 	 
 	/* Declare variables to store value from ADC module */
 	unsigned int Pot_Value_Temp = 0;
@@ -90,7 +93,7 @@ int main(void)
 		/* Adjust brightness for module leds 7-segments  */
 		Convert_ADC_Channel(12);
 		Pot_Value = Read_ADC_Result() * 15 / 4095; /* resolution of ADC 12bit from 0 -> 4095, brightness 0 - 15*/
-		if(Pot_Value != Pot_Value_Temp) /* when Pot_Value is a changes, the Pot_Value recaculated */
+		if(Pot_Value != Pot_Value_Temp) /* when Pot_Value is a changes, the Pot_Value will be recaculated */
 		{
 			/* Set intensity (brightness level 0-15) */
 			SPI_SendData(MAX7219_INTENSITY, Pot_Value);
@@ -112,7 +115,7 @@ int main(void)
 			Convert_ADC_Channel(13);
 		  Temperature += (Read_ADC_Result() / 8.2);
 		}
-		Temperature /= 100; /* Caculate average value */
+		Temperature /= 100; /* Caculate average value for 100 times Read ADC */
 	}
 	return 0;
 }
